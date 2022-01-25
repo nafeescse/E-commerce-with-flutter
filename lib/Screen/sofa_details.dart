@@ -38,7 +38,7 @@ class _SofaDetailsState extends State<SofaDetails> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
-                Text('Ceni Volcanic Gray Sofa',
+                Text('Volcanic Gray Sofa',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -67,12 +67,12 @@ class _SofaDetailsState extends State<SofaDetails> {
                   style: TextStyle(
                     decoration: TextDecoration.lineThrough,
                     color: Colors.red,
-                    fontSize: 15,
+                    fontSize: 20,
                   ),
                 ),
                 Text("Discount Price: 9000৳",
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 20,
                   ),
                 )
               ],

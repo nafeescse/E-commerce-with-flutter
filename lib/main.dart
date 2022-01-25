@@ -1,4 +1,7 @@
 import 'package:ecommerce/Homepagemain.dart';
+import 'package:ecommerce/Screen/electronic_devices.dart';
+import 'package:ecommerce/Screen/home_screen.dart';
+import 'package:ecommerce/Screen/sofa_details.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:ecommerce/Homepagemain.dart';

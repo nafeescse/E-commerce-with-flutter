@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -39,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(30),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,8 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       // );
                     },
                     child: const CircleAvatar(
-                      // child: Image.network('url'),
-                      radius: 25, foregroundColor: Colors.blueGrey,
+                      child: Image(image: AssetImage("assets/nafees.jpeg")),
+                      // NetworkImage('https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE=')),
+
+                    radius: 20, foregroundColor: Colors.blueGrey,
                     ),
                   ),
                 ],
@@ -245,7 +245,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: 10,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
+                          return
+                            GestureDetector(
                             onTap: (){
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => const SofaDetails())

@@ -5,6 +5,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'Screen/sofa_details.dart';
 import 'assistant/user_info.dart';
 import 'controller.dart';
 
@@ -161,37 +162,77 @@ class _DiscoverState extends State<Discover> {
                             crossAxisSpacing: 5,
                             crossAxisCount: 2),
                         //
-                        itemBuilder: (context, index) => Container(
-                            padding: EdgeInsets.all(5),
-                            margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.white),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white,
-                                    blurRadius: 4,
-                                  ),
-                                ],
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: (){
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const SofaDetails())
+                            );
+                          },
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.15,
+                            width:  MediaQuery.of(context).size.width * 0.25,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image(
-                                  image: NetworkImage(
-                                      "https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),
-                                  width: 150,
+                                ClipRRect(
+                                  child: Image.network(
+                                    'https://cdn-images.article.com/products/SKU25A/2890x1500/image74669.jpg?fit=max&w=1370&q=80&fm=webp',
+                                    fit: BoxFit.fill,
+                                  ),
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
-                                Text("Sofa"),
-                                Text("5000 TK"),
-                                ElevatedButton(
-                                    onPressed: () {},
-                                    child: Text("Add to Cart",
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                        )))
+                                const SizedBox(height: 5),
+                                const Text('Andes Sofa',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: const [
+                                    Text("৳ 10000",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    Text("৳ 9000")
+                                  ],
+                                ),
                               ],
-                            )),
+                            ),
+                          ),
+                        ),
+                            // Container(
+                            // padding: EdgeInsets.all(5),
+                            // margin: EdgeInsets.all(5),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: Colors.white),
+                            //     boxShadow: [
+                            //       BoxShadow(
+                            //         color: Colors.white,
+                            //         blurRadius: 4,
+                            //       ),
+                            //     ],
+                            //     borderRadius:
+                            //         BorderRadius.all(Radius.circular(10))),
+                            // child: Column(
+                            //   children: [
+                            //     Image(
+                            //       image: NetworkImage(
+                            //           "https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),
+                            //       width: 150,
+                            //     ),
+                            //     Text("Sofa"),
+                            //     Text("5000 TK"),
+                            //     ElevatedButton(
+                            //         onPressed: () {},
+                            //         child: Text("Add to Cart",
+                            //             style: TextStyle(
+                            //               fontSize: 15,
+                            //               color: Colors.white,
+                            //             )))
+                            //   ],
+                            // )),
                         itemCount: 4,
                         // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,),
                         // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,)
