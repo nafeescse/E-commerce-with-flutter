@@ -32,8 +32,8 @@ class LoadAllApiData{
 
     if(heroResponse.statusCode == 200){
       var jsonDecode = json.decode(heroResponse.body);
-      var convertData = json.encode(jsonDecode(['data']));
-      print(convertData = "Hello");
+      var convertData = json.encode(jsonDecode['data']);
+      print(convertData + "Hello");
       return getAllCategoryFromJson(convertData);
     }
     return null;
@@ -46,8 +46,8 @@ class LoadAllApiData{
 
     if(heroResponse.statusCode == 200){
       var jsonDecode = json.decode(heroResponse.body);
-      var convertData = json.encode(jsonDecode(['data']));
-      print(convertData = "Hello");
+      var convertData = json.encode(jsonDecode['data']);
+      print(convertData +"Hello");
       return getAllProductDataFromJson(convertData);
     }
     return null;
@@ -60,8 +60,8 @@ class LoadAllApiData{
 
     if(heroResponse.statusCode == 200){
       var jsonDecode = json.decode(heroResponse.body);
-      var convertData = json.encode(jsonDecode(['data']));
-      print(convertData = "Hello");
+      var convertData = json.encode(jsonDecode['data']);
+      print(convertData +"Hello");
       return getAllSliderFromJson(convertData);
     }
     return null;
@@ -74,8 +74,8 @@ class LoadAllApiData{
 
     if(heroResponse.statusCode == 200){
       var jsonDecode = json.decode(heroResponse.body);
-      var convertData = json.encode(jsonDecode(['data']));
-      print(convertData = "Hello");
+      var convertData = json.encode(jsonDecode['data']);
+      print(convertData +"Hello");
       return allUserListFromJson(convertData);
     }
     return null;
@@ -88,8 +88,8 @@ class LoadAllApiData{
 
     if(heroResponse.statusCode == 200){
       var jsonDecode = json.decode(heroResponse.body);
-      var convertData = json.encode(jsonDecode(['data']));
-      print(convertData = "Hello");
+      var convertData = json.encode(jsonDecode['data']);
+      print(convertData +"Hello");
       return getOrderSummaryFromJson(convertData);
     }
     return null;

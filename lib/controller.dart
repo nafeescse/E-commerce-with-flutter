@@ -2,7 +2,6 @@ import 'package:ecommerce/model/get_all_user_list.dart';
 import 'package:ecommerce/model/get_order_summery.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import 'assistant/load_all_api_data.dart';
 import 'model/get_all_category.dart';
 import 'model/get_all_product_data.dart';

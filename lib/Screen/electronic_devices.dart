@@ -37,7 +37,7 @@ class _ElectronicDevicesState extends State<ElectronicDevices> {
                 return GestureDetector(
                   onTap: (){
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const SofaDetails())
+                        MaterialPageRoute(builder: (context) => SofaDetails(index:index))
                     );
                   },
                   child: Container(

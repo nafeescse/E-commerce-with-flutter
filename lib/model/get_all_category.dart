@@ -2,7 +2,6 @@
 //
 //     final getAllCategory = getAllCategoryFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<GetAllCategory> getAllCategoryFromJson(String str) => List<GetAllCategory>.from(json.decode(str).map((x) => GetAllCategory.fromJson(x)));

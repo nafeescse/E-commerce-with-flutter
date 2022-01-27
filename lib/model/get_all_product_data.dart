@@ -41,12 +41,12 @@ class GetAllProductData {
     categoryId: json["category_id"],
     name: json["name"],
     img1: json["img1"],
-    img2: json["img2"] == null ? null : json["img2"],
-    img3: json["img3"] == null ? null : json["img3"],
+    img2: json["img2"] == null ? "" : json["img2"],
+    img3: json["img3"] == null ? "" : json["img3"],
     img4: json["img4"],
     img5: json["img5"],
     price: json["price"],
-    sellingPrice: json["selling_price"] == null ? null : json["selling_price"],
+    sellingPrice: json["selling_price"] == null ? "" : json["selling_price"],
     description: json["description"],
   );
 
@@ -55,12 +55,12 @@ class GetAllProductData {
     "category_id": categoryId,
     "name": name,
     "img1": img1,
-    "img2": img2 == null ? null : img2,
-    "img3": img3 == null ? null : img3,
+    "img2": img2 == null ? "" : img2,
+    "img3": img3 == null ? "" : img3,
     "img4": img4,
     "img5": img5,
     "price": price,
-    "selling_price": sellingPrice == null ? null : sellingPrice,
+    "selling_price": sellingPrice == null ? "" : sellingPrice,
     "description": description,
   };
 }

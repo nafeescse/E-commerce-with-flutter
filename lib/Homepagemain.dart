@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -25,6 +27,8 @@ class _DiscoverState extends State<Discover> {
     super.initState();
     getSharedPreferenceData;
     _controller.getAllCategory();
+    _controller.getProductData();
+    _controller.getAllSlider();
     // print("_controller.dataProductData.length.toString"+ 'Hello');
   }
 
@@ -81,6 +85,35 @@ class _DiscoverState extends State<Discover> {
                   ],
                 ),
               ),
+              Obx(() {
+                if(_controller.loadingSliderList.value){
+                  return CircularProgressIndicator();
+                }else {
+                  return CarouselSlider.builder(
+                      itemCount: _controller.dataSliderList.length,
+                      itemBuilder: (context, index, realIndex) {
+                        return CachedNetworkImage(
+                          imageUrl: "https://happybuy.appsticit.com/" +
+                              _controller.dataSliderList[index]
+                                  .sliderImage
+                                  .toString(),
+                        );
+                      },
+                      options: CarouselOptions(
+                        height: 150.0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration:
+                        Duration(seconds: 1),
+                        viewportFraction: 1,
+                      ));
+                }
+
+              }),
+
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
@@ -104,20 +137,18 @@ class _DiscoverState extends State<Discover> {
                 } else {
                   return Container(
                       color: Colors.white,
-                      height: 180,
+                      height: 100,
                       padding: EdgeInsets.only(left: 10),
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _controller.dataCategorylist.length,
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 1,
-                                  // crossAxisCount: 1
-                              ),
-                          //
-                          itemBuilder: (context, index) {
-                            return Container(
-                              height: 180,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _controller.dataCategorylist.length,
+                        //gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+
+                        //
+                        itemBuilder: (context, index) {
+                          return Container(
+                              height: 100,
+                              width: 100,
                               padding: EdgeInsets.all(10),
                               margin: EdgeInsets.all(2),
                               decoration: BoxDecoration(
@@ -129,11 +160,14 @@ class _DiscoverState extends State<Discover> {
                                     ),
                                   ],
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                              child: Image.asset("assets/nafees.jpeg"),
-                            );
-                          }
-                        )
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Image.network(
+                                  "https://happybuy.appsticit.com" +
+                                      _controller
+                                          .dataCategorylist[index].categoryImage
+                                          .toString()));
+                        },
+                      )
 
                       // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,),
                       // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,)
@@ -143,8 +177,9 @@ class _DiscoverState extends State<Discover> {
               Icon(
                 Icons.menu,
               ),
-              Obx(() {
-                  if (_controller.loadingCategoryList.value) {
+              Obx(
+                () {
+                  if (_controller.loadingProductList.value) {
                     return CircularProgressIndicator();
                   } else {
                     return Container(
@@ -154,7 +189,7 @@ class _DiscoverState extends State<Discover> {
                               topLeft: Radius.circular(30)),
                           color: Color(0xFFE0F2F1)),
                       padding: EdgeInsets.all(5),
-                      height: MediaQuery.of(context).size.height * .5,
+                      height: MediaQuery.of(context).size.height * .8,
                       child: GridView.builder(
                         scrollDirection: Axis.vertical,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -163,77 +198,64 @@ class _DiscoverState extends State<Discover> {
                             crossAxisCount: 2),
                         //
                         itemBuilder: (context, index) => GestureDetector(
-                          onTap: (){
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const SofaDetails())
-                            );
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SofaDetails(index: index)));
+                            // _controller.dataProductlist[index].description.toString()));
                           },
                           child: Container(
                             height: MediaQuery.of(context).size.height * 0.15,
-                            width:  MediaQuery.of(context).size.width * 0.25,
+                            width: MediaQuery.of(context).size.width * 0.25,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 ClipRRect(
                                   child: Image.network(
-                                    'https://cdn-images.article.com/products/SKU25A/2890x1500/image74669.jpg?fit=max&w=1370&q=80&fm=webp',
-                                    fit: BoxFit.fill,
+                                    "https://happybuy.appsticit.com" +
+                                        _controller.dataProductlist[index].img1
+                                            .toString(),
+                                    height: 100,
+                                    width: 150,
+                                    fit: BoxFit.fitWidth,
                                   ),
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                const SizedBox(height: 5),
-                                const Text('Andes Sofa',
+
+                                // borderRadius: BorderRadius.circular(30),
+                                SizedBox(height: 5),
+                                Text(
+                                  _controller.dataProductlist[index].name
+                                      .toString(),
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(height: 5),
+                                SizedBox(height: 5),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: const [
-                                    Text("৳ 10000",
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      _controller.dataProductlist[index].price
+                                          .toString(),
                                       style: TextStyle(
                                         decoration: TextDecoration.lineThrough,
                                         color: Colors.red,
                                       ),
                                     ),
-                                    Text("৳ 9000")
+                                    Text(
+                                      _controller
+                                          .dataProductlist[index].sellingPrice
+                                          .toString(),
+                                    )
                                   ],
                                 ),
                               ],
                             ),
                           ),
                         ),
-                            // Container(
-                            // padding: EdgeInsets.all(5),
-                            // margin: EdgeInsets.all(5),
-                            // decoration: BoxDecoration(
-                            //     border: Border.all(color: Colors.white),
-                            //     boxShadow: [
-                            //       BoxShadow(
-                            //         color: Colors.white,
-                            //         blurRadius: 4,
-                            //       ),
-                            //     ],
-                            //     borderRadius:
-                            //         BorderRadius.all(Radius.circular(10))),
-                            // child: Column(
-                            //   children: [
-                            //     Image(
-                            //       image: NetworkImage(
-                            //           "https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),
-                            //       width: 150,
-                            //     ),
-                            //     Text("Sofa"),
-                            //     Text("5000 TK"),
-                            //     ElevatedButton(
-                            //         onPressed: () {},
-                            //         child: Text("Add to Cart",
-                            //             style: TextStyle(
-                            //               fontSize: 15,
-                            //               color: Colors.white,
-                            //             )))
-                            //   ],
-                            // )),
-                        itemCount: 4,
+                        itemCount: _controller.dataProductlist.length,
                         // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,),
                         // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,)
                       ),
@@ -241,60 +263,7 @@ class _DiscoverState extends State<Discover> {
                   }
                 },
               ),
-              SizedBox(
-                  height: 80,
-                  child: Text("Most popular", style: TextStyle(fontSize: 25))),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30)),
-                    color: Color(0xFFE0F2F1)),
-                padding: EdgeInsets.all(5),
-                height: MediaQuery.of(context).size.height * .5,
-                child: GridView.builder(
-                  scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
-                      crossAxisCount: 2),
-                  //
-                  itemBuilder: (context, index) => Container(
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 4,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Column(
-                        children: [
-                          Image(
-                            image: NetworkImage(
-                                "https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),
-                            width: 150,
-                          ),
-                          Text("Laptop"),
-                          Text("8000 TK"),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: Text("Add to Cart",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  )))
-                        ],
-                      )),
-                  itemCount: 4,
-                  // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,),
-                  // Image(image: NetworkImage("https://media.istockphoto.com/photos/modern-living-room-with-orange-couch-picture-id637876746?b=1&k=20&m=637876746&s=170667a&w=0&h=EJax_avgktyLW9mEDgAcot5fULDJcOaD5mF3lsBLviE="),width: MediaQuery.of(context).size.width *.35,)
-                ),
-              ),
-            ],
+            ]
           )),
     );
   }
